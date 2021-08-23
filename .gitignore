@@ -1,0 +1,11 @@
+# PyCharm Configuration Files
+.idea
+
+# Python Environment
+__pycache__
+venv
+
+# Packaging
+build
+dist
+*.egg-info

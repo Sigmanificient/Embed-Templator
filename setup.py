@@ -12,8 +12,8 @@ setup(
     name="embed-templator",
     version="1.0.1",
     description=(
-        "Uses custom embed templates for your discord bot"
-        "to keep order and consistency."
+        "A Python Template manager for your discord bot to keep your embeds"
+        " simple & consistent. "
     ),
     long_description=README,
     long_description_content_type="text/markdown",

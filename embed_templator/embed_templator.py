@@ -17,14 +17,33 @@ class Embed(discord.Embed):
 
     @classmethod
     def load(cls, client, auto_author=False, **kwargs):
-        """Set the client instance."""
+        """Set the client instance.
+
+        :param client
+            The bot instance used.
+
+        :param auto_author: bool
+            Automatically set the author section with ctx.author.
+
+        :param kwargs:
+            Embed additional to set name, descriptions, color and more.
+
+            if you set kwargs on the initialization,
+                you will not be able to set the context.
+        """
         cls.client = client
         cls.default_args.update(kwargs)
         cls.auto_author = auto_author
 
     def __init__(self, ctx=None, **kwargs):
         """Initialise discord embed, set default bot color and
-            set dynamic footer if ctx is passed."""
+            set dynamic footer if ctx is passed.
+
+        :param ctx: the command context for higher embed customizations.
+
+        :param kwargs:
+            Embed additional to set name, descriptions, color and more.
+        """
 
         if not self.client:
             raise RuntimeError("Embed hasn't been initialized yet.")
@@ -39,6 +58,14 @@ class Embed(discord.Embed):
         self.ctx = ctx
 
     def __call__(self, **kwargs) -> Embed:
+        """Initialise the embed with a command context.
+            Should be used if you use ctx in the setup or update.
+
+        :param kwargs:
+            Embed additional to set name, descriptions, color and more.
+
+        :return: the embed for chaining methods.
+        """
         if self.initialized:
             raise AlreadyInitializedError()
 
@@ -59,9 +86,17 @@ class Embed(discord.Embed):
         return self.setup()
 
     def setup(self) -> Embed:
+        """A setup method for inheritance,
+            will be called after the embed initialization (ctx mode).
+        :return: the embed for chaining methods.
+        """
         return self
 
     def to_dict(self):
+        """Transforms the embed to a json-like python format.
+
+        :return: the embed for chaining methods.
+        """
         if not self.initialized:
             raise NotInitializedError()
 
@@ -78,4 +113,7 @@ class Embed(discord.Embed):
         return super().to_dict()
 
     def update(self) -> None:
+        """A update method for inheritance,
+            called before the embed a sent.
+        """
         pass

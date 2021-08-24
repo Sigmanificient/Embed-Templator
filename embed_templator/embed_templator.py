@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+from typing import Union, Dict, Any, Iterable, Optional, Callable
+
 import discord
 
 from .exceptions import (
@@ -117,3 +120,50 @@ class Embed(discord.Embed):
             called before the embed a sent.
         """
         pass
+
+    def add_fields(
+            self,
+            field_list: Union[Dict[Any, Any], Iterable[Iterable[Any, Any]]],
+            checks: Optional[Callable[[Any], Any]] = bool,
+            map_title: Optional[Callable[[Any], str]] = str,
+            map_values: Optional[Callable[[Any], str]] = str,
+            inline: bool = True
+    ) -> Embed:
+        """Add multiple fields from a list,
+            dict or generator of fields with possible mapping.
+
+            :param field_list:
+                A iterable or generator of the fields to add.
+
+            :param checks:
+                A filter function to remove embed fields.
+
+            :param map_title:
+                A transform function to change the titles
+
+            :param map_values:
+                A transform function to change the values.
+
+            :param inline:
+                Whether to create grid or each field on a new line.
+
+            :return: the embed for chaining methods.
+            """
+        if isinstance(field_list, dict):
+            field_list: Iterable[Iterable[Any, Any]] = field_list.items()
+
+        for field_name, field_value in field_list:
+            val = (
+                map_values(field_value)
+                if not isinstance(field_value, tuple)
+                else map_values(*field_value)
+            )
+
+            if checks(val):
+                self.add_field(
+                    name=map_title(field_name),
+                    value=val,
+                    inline=inline
+                )
+
+        return self

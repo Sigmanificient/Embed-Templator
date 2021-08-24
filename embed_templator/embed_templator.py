@@ -60,11 +60,23 @@ class Embed(discord.Embed):
         self.initialized = False
 
         if len(kwargs):
-            _kwargs = self.default_args.copy()
-            _kwargs.update(kwargs)
+            self.__init_kwargs(kwargs)
             self.initialized = True
 
         self.ctx = ctx
+
+    def __init_kwargs(self, kwargs):
+        _kwargs = self.default_args.copy()
+        _kwargs.update(kwargs)
+
+        super(Embed, self).__init__(
+            colour=getattr(
+                self.client,
+                'colour',
+                self.client.user.colour
+            ),
+            **_kwargs
+        )
 
     def __call__(self, **kwargs) -> Embed:
         """Initialise the embed with a command context.
@@ -79,18 +91,7 @@ class Embed(discord.Embed):
             raise AlreadyInitializedError()
 
         self.initialized = True
-
-        _kwargs = self.default_args.copy()
-        _kwargs.update(kwargs)
-
-        super().__init__(
-            colour=getattr(
-                self.client,
-                'colour',
-                self.client.user.colour
-            ),
-            **_kwargs,
-        )
+        self.__init_kwargs(kwargs)
 
         return self.setup()
 

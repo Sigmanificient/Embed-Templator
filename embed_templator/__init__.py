@@ -5,6 +5,18 @@ import discord
 __version__: str = '1.0.1'
 
 
+class NotInitializedError(Exception):
+
+    def __init__(self):
+        self.message = "the embed has not been initialized."
+
+
+class AlreadyInitializedError(Exception):
+
+    def __init__(self):
+        self.message = "an embed already initialized was called."
+
+
 class MissingContextError(Exception):
 
     def __init__(self):
@@ -25,7 +37,7 @@ class Embed(discord.Embed):
         cls.default_args.update(kwargs)
         cls.auto_author = auto_author
 
-    def __init__(self, ctx=None):
+    def __init__(self, ctx=None, **kwargs):
         """Initialise discord embed, set default bot color and
             set dynamic footer if ctx is passed."""
 
@@ -33,9 +45,18 @@ class Embed(discord.Embed):
             raise RuntimeError("Embed hasn't been initialized yet.")
 
         self.initialized = False
+
+        if len(kwargs):
+            _kwargs = self.default_args.copy()
+            _kwargs.update(kwargs)
+            self.initialized = True
+
         self.ctx = ctx
 
     def __call__(self, **kwargs) -> Embed:
+        if self.initialized:
+            raise AlreadyInitializedError()
+
         self.initialized = True
 
         _kwargs = self.default_args.copy()
@@ -57,7 +78,7 @@ class Embed(discord.Embed):
 
     def to_dict(self):
         if not self.initialized:
-            super().__init__(**self.default_args)
+            raise NotInitializedError()
 
         if self.auto_author:
             if self.ctx is None:

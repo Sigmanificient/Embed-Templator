@@ -10,14 +10,14 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="embed-templator",
-    version="1.0.0",
+    version="1.0.1",
     description=(
         "Uses custom embed templates for your discord bot"
         "to keep order and consistency."
     ),
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/Edhyjox/impauto",
+    url="https://github.com/Sigmanificient/Embed-Templator",
     author="Sigmanificient",
     author_email="edhyjox@gmail.com",
     license="MIT",
@@ -27,7 +27,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
     ],
-    packages=['embed-templator'],  # Pkg name
+    packages=['embed_templator'],  # Pkg name
     include_package_data=True,
     install_requires=['discord.py']
 )

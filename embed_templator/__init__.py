@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import discord
 
+__version__: str = '1.0.1'
+
 
 class MissingContextError(Exception):
 
@@ -50,7 +52,7 @@ class Embed(discord.Embed):
 
         return self.setup()
 
-    def setup(self):
+    def setup(self) -> Embed:
         return self
 
     def to_dict(self):
@@ -69,5 +71,8 @@ class Embed(discord.Embed):
         self.update()
         return super().to_dict()
 
-    def update(self):
+    def update(self) -> None:
         pass
+
+
+__all__ = (__version__, Embed)

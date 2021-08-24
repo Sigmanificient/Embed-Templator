@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Union, Dict, Any, Iterable, Optional, Callable
 
 import discord
+from discord.ext import commands
 
 from .exceptions import (
     NotInitializedError,
@@ -10,16 +11,21 @@ from .exceptions import (
     MissingContextError
 )
 
+Bot: Optional[Union[commands.Bot, discord.Client]]
+
 
 class Embed(discord.Embed):
     """Embed wrapping of discord.Embed class."""
 
-    client = None
-    default_args = {'description': 'embedTemplator'}
-    auto_author = False
+    auto_author: bool = False
+    client: Bot = None
+
+    default_args: Dict[str: Any] = {
+        'description': 'embedTemplator'
+    }
 
     @classmethod
-    def load(cls, client, auto_author=False, **kwargs):
+    def load(cls, client: Bot, auto_author=False, **kwargs) -> None:
         """Set the client instance.
 
         :param client
@@ -38,7 +44,7 @@ class Embed(discord.Embed):
         cls.default_args.update(kwargs)
         cls.auto_author = auto_author
 
-    def __init__(self, ctx=None, **kwargs):
+    def __init__(self, ctx: Optional[discord.Context] = None, **kwargs):
         """Initialise discord embed, set default bot color and
             set dynamic footer if ctx is passed.
 

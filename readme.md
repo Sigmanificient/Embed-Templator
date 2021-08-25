@@ -1,6 +1,7 @@
 # Embed Templator
 
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/Embed-Templator)
+[![PyPI - Downloads](https://img.shields.io/badge/dynamic/json?label=downloads&query=%24.total_downloads&url=https%3A%2F%2Fapi.pepy.tech%2Fapi%2Fprojects%2FEmbed-Templator)](https://pypi.org/project/Embed-Templator/)
 ![PyPI](https://img.shields.io/pypi/v/Embed-Templator)
 ![PyPI - Format](https://img.shields.io/pypi/format/Embed-Templator)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Embed-Templator)

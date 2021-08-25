@@ -3,5 +3,5 @@
 
 from .embed_templator import Embed
 
-__version__: str = '1.0.3'
+__version__: str = '1.0.4'
 __all__ = (__version__, Embed)

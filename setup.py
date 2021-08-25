@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="embed-templator",
-    version="1.0.3",
+    version="1.0.4",
     description=(
         "A Python Template manager for your discord bot to keep your embeds"
         " simple & consistent. "

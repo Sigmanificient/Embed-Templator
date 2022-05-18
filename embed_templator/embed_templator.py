@@ -161,10 +161,11 @@ class Embed(discord.Embed):
 
         for field_name, field_value in field_list:
             val = (
-                map_values(field_value)
-                if not isinstance(field_value, tuple)
-                else map_values(*field_value)
+                map_values(*field_value)
+                if isinstance(field_value, tuple)
+                else map_values(field_value)
             )
+
 
             if checks(val):
                 self.add_field(

@@ -1,3 +1,4 @@
 setuptools~=67.8.0
 discord.py~=2.3.2
 twine~=4.0.2
+requests>=2.32.0 # not directly required, pinned by Snyk to avoid a vulnerability
